@@ -61,7 +61,7 @@ return (
                                 onSelectProvider(elemento, 'Editar');
                                 onClick();
                     }}>Editar</button> {"   "} 
-                  <button className="btn btn-danger" onClick={()=>onSelectProvider(elemento, 'Eliminar')}>Eliminar</button></td>
+                  </td>
                 </tr>
               ))
               }
