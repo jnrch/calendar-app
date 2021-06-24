@@ -472,7 +472,7 @@ export const ProviderModal = () => {
                                     onClick={() =>  { 
                                         deleteFile(elemento, formValues);
                                 }}> 
-                                Descargar
+                                Eliminar
                                 </button>
                             </li>     
                         </ul>
