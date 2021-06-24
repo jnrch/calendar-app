@@ -83,7 +83,6 @@ export const ProviderModal = () => {
     }, [activeProvider, setFormValues]);
 
     const handleInputChange = ({ target }) => {
-        console.log(target);
         setFormValues({
             ...formValues,
             [target.name]: target.value
