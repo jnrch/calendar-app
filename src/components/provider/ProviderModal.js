@@ -61,18 +61,6 @@ export const ProviderModal = () => {
 
     const [formValues, setFormValues] = useState(initProvider);
 
-    /*const salesContact = {
-        name: '',
-        email: '',
-        phone: 0
-    }*/
-
-    /*const administrativeContact = {
-        name: '',
-        email: '',
-        phone: 0
-    }*/
-
     const { id, name, businessName, accountingArea,
             documentNumber, address, email, phone,cellPhone,
             usualPayment, files, acceptThirdPartyCheck, usualPaymentTerm,

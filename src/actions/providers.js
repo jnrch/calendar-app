@@ -56,6 +56,23 @@ export const providerStartUpdate = (provider2, provider) => {
             const body = await resp.json();
 
             if (resp.status === 200) {
+                provider.id = body.id;
+                provider.name = body.name;
+                provider.businessName = body.businessName;
+                provider.accountingArea = body.accountingArea;
+                provider.documentNumber = body.documentNumber;
+                provider.address = body.address;
+                provider.email = body.email;
+                provider.phone = body.phone;
+                provider.cellPhone = body.cellPhone;
+                provider.usualPayment = body.usualPayment;
+                provider.usualPaymentTerm = body.usualPaymentTerm;
+                provider.acceptThirdPartyCheck = body.acceptThirdPartyCheck;
+                provider.files = body.files;
+                provider.withholdingAndPerceptionExempt = body.withholdingAndPerceptionExempt;
+                provider.salesContact = body.salesContact;
+                provider.administrativeContact = body.administrativeContact;
+                
                 dispatch(providerUpdated(provider));
             } else {
                 Swal.fire('Error', body.msg, 'error');
