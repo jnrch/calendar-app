@@ -26,6 +26,7 @@ export const providerStartAddNew = (provider) => {
                 provider.files = body.files;
                 provider.withholdingAndPerceptionExempt = body.withholdingAndPerceptionExempt;
                 provider.salesContact = body.salesContact;
+                provider.administrativeContact = body.administrativeContact;
 
                 dispatch(providerAddNew(provider));
             }

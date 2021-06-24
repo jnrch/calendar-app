@@ -10,10 +10,10 @@ import $ from 'jquery';
 
 export const Provider = () => {
 
-    $('#example').DataTable();
-
     const dispatch = useDispatch();
     const {providers} = useSelector( state => state.provider );
+
+    $('#example').DataTable();
 
     const [, setProviderSelected] = useState({ 
         id: '',

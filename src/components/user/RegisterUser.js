@@ -20,10 +20,10 @@ const initUser = {
 
 export const RegisterUser = () => {
 
-    $('#example2').DataTable();
-
     const dispatch = useDispatch();
     const {users} = useSelector( state => state.user );
+          
+    $('#example2').DataTable();
 
     const [, setUserSelected] = useState(initUser);
 

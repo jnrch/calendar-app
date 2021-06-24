@@ -35,7 +35,17 @@ const initProvider = {
     acceptThirdPartyCheck: '',
     usualPaymentTerm: 0,
     withholdingAndPerceptionExempt: '',
-    files: []
+    files: [],
+    salesContact: {
+        name: '',
+        email: '',
+        phone: 0
+    },
+    administrativeContact: {
+        name: '',
+        email: '',
+        phone: 0
+    } 
 }
 
 export const ProviderModal = () => {
@@ -51,22 +61,22 @@ export const ProviderModal = () => {
 
     const [formValues, setFormValues] = useState(initProvider);
 
-    const salesContact = {
+    /*const salesContact = {
         name: '',
         email: '',
         phone: 0
-    }
+    }*/
 
-    const administrativeContact = {
+    /*const administrativeContact = {
         name: '',
         email: '',
         phone: 0
-    }
+    }*/
 
     const { id, name, businessName, accountingArea,
             documentNumber, address, email, phone,cellPhone,
             usualPayment, files, acceptThirdPartyCheck, usualPaymentTerm,
-            withholdingAndPerceptionExempt,
+            withholdingAndPerceptionExempt, salesContact, administrativeContact,
             salesContactName = salesContact.name,
             salesContactEmail = salesContact.email,
             salesContactPhone = salesContact.phone,
@@ -402,7 +412,7 @@ export const ProviderModal = () => {
                             placeholder="Teléfono"
                             name="salesContactPhone"
                             autoComplete="off"
-                            value={ salesContactPhone || ''}
+                            value={ salesContactPhone}
                             onChange={ handleInputChange }
                         />
                 </div>
@@ -439,7 +449,7 @@ export const ProviderModal = () => {
                             placeholder="Teléfono"
                             name="administrativeContactPhone"
                             autoComplete="off"
-                            value={ administrativeContactPhone || ''}
+                            value={ administrativeContactPhone }
                             onChange={ handleInputChange }
                         />
                 </div>
