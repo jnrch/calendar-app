@@ -1,58 +1,58 @@
 import { types } from '../types/types';
 
 const initialState = {
-    events: [],
-    activeEvent: null
+    providers: [],
+    activeProvider: null
 };
 
-export const calendarReducer = ( state = initialState, action ) => {
+export const providerReducer = ( state = initialState, action ) => {
     switch (action.type) {
     
-        case types.eventSetActive:
+        case types.providerSetActive:
             return {
                 ...state,
-                activeEvent: action.payload
+                activeProvider: action.payload
             }
 
-        case types.eventAddNew:
+        case types.providerAddNew:
             return {
                 ...state,
-                events: [
-                    ...state.events,
+                providers: [
+                    ...state.providers,
                     action.payload
                 ]
             }
 
-        case types.eventClearActiveEvent: 
+        case types.providerClearActiveProvider: 
             return {
                 ...state,
-                activeEvent: null
+                activeProvider: null
             }
         
-        case types.eventUpdated:
+        case types.providerUpdated:
             return {
                 ...state,
-                events: state.events.map(
+                providers: state.providers.map(
                     e => (e.id === action.payload.id ) ? action.payload : e
                 )
             }
         
-        case types.eventDeleted:
+        case types.providerDeleted:
             return {
                 ...state,
-                events: state.events.filter(
-                    e => (e.id !== state.activeEvent.id)
+                providers: state.providers.filter(
+                    e => (e.id !== state.activeProvider.id)
                 ),
-                activeEvent: null
+                activeProvider: null
             }
         
-        case types.eventLoaded:
+        case types.providerLoaded:
             return {
                 ...state,
-                events: [...action.payload]
+                providers: [...action.payload]
             }
         
-        case types.eventLogout:
+        case types.providerLogout:
             return {
                 ...initialState
             } 

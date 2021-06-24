@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -10,31 +10,25 @@ import 'moment/locale/es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
-import { eventSetActive } from '../../actions/events';
+import { eventSetActive, eventStartLoading } from '../../actions/events';
 import { AddNewfab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
 moment.locale('es');
 
 const localizer = momentLocalizer(moment);
-const events = [{
-    title: 'Boss birthday',
-    start: moment().toDate(),
-    end: moment().add( 2, 'hours').toDate(),
-    bgcolor: '#fafafa',
-    notes: 'Comprar el pastel',
-    user: {
-        _id: '1234',
-        name: 'Jonathan'
-    }
-}]
 
 export const Calendar = () => {
 
     const dispatch = useDispatch();
     const {events, activeEvent} = useSelector( state => state.calendar);
+    const {roles} = useSelector(state => state.auth);
 
-    const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'month');
+    const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'month' || 'week');
+
+    useEffect(() => {
+        dispatch(eventStartLoading());
+    }, [dispatch]);
 
     const onDoubleClick = (e) => {
         dispatch(uiOpenModal());
@@ -49,14 +43,15 @@ export const Calendar = () => {
         localStorage.setItem('lastView', e);
     }
 
-    const eventStyleGetter = ( event, start, end, isSelected ) => {
-        console.log(event, start, end, isSelected);
+    const eventStyleGetter = ( event ) => {
+
         const style = {
-            backgroundcolor: '#367CF7',
+            backgroundColor: (event.status === 'PAID') ? '#00FF00' : (event.status === 'TOPAY') ? '#5E69F9' : '#FEA348',//( uid === event.user.id ) ? '#367CF7' : '#465660',
             borderRadius: '0px',
-            opacity: '0.8',
+            opacity: '2',
             display: 'block',
-            color: 'white'
+            textDecoration: (event.status === 'ANNULLED') ? 'line-through' : '',
+            color: '#000000'//( 'ANNULLED' === event.status ) ? 'orange' : ( 'TOPAY' === event.status ) ? 'red' : ( 'PAID' === event.status ) ? 'green' : 'white',//'white'
         }
 
         return {
@@ -70,7 +65,7 @@ export const Calendar = () => {
             <BigCalendar 
                 localizer={ localizer }
                 events={ events }
-                startAccessor="start"
+                startAccessor="end"
                 endAccesor="end"
                 messages={ messages }
                 eventPropGetter={ eventStyleGetter }
@@ -78,12 +73,17 @@ export const Calendar = () => {
                 onSelectEvent={ onSelectEvent }
                 onView={ onViewChange }
                 view={ lastView }
+                views={['month']}
                 components={{
-                    event: CalendarEvent
+                    event: CalendarEvent,
+                    
                 }}
+                popup
+                showMultiDayTimes
             />
-
-            <AddNewfab/>
+            {!roles.includes('ROLE_USER') &&
+                <AddNewfab/>
+            }
             {
                 (activeEvent) && <DeleteEventFab />
             }
