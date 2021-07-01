@@ -70,9 +70,26 @@ export const providerStartUpdate = (provider2, provider) => {
                 provider.acceptThirdPartyCheck = body.acceptThirdPartyCheck;
                 provider.files = body.files;
                 provider.withholdingAndPerceptionExempt = body.withholdingAndPerceptionExempt;
-                provider.salesContact = body.salesContact;
-                provider.administrativeContact = body.administrativeContact;
-                
+                if (body.salesContact === null) {
+                    provider.salesContact = {
+                        name: null,
+                        email: null,
+                        phone: null
+                    } 
+                } else {
+                    provider.salesContact = body.salesContact;
+                }
+                if (body.administrativeContact === null) {
+                    provider.administrativeContact = body.administrativeContact = {
+                        name: null,
+                        email: null,
+                        phone: null
+                    }
+                } else {
+                    provider.administrativeContact = body.administrativeContact;
+                }
+            
+
                 dispatch(providerUpdated(provider));
             } else {
                 Swal.fire('Error', body.msg, 'error');
@@ -89,7 +106,7 @@ const providerUpdated = (provider) => ({
     payload: provider
 });
 
-export const providerStartLoading = () => {
+export const providerStartLoading = (provider) => {
     return async (dispatch) => {
         try {
             const resp = await fetchWithToken('providers');
@@ -98,6 +115,7 @@ export const providerStartLoading = () => {
             const providers = body;
 
             dispatch(providerLoaded(providers));
+
         } catch (error) {
             console.log(error);
         }

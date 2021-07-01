@@ -29,23 +29,23 @@ const initProvider = {
     documentNumber: '',
     address: '',
     email: '',
-    phone: 0,
-    cellPhone: 0,
+    phone: '',
+    cellPhone: '',
     usualPayment: '',
     acceptThirdPartyCheck: '',
-    usualPaymentTerm: 0,
+    usualPaymentTerm: '',
     withholdingAndPerceptionExempt: '',
     files: [],
     salesContact: {
         name: '',
         email: '',
-        phone: 0
+        phone: ''
     },
     administrativeContact: {
         name: '',
         email: '',
-        phone: 0
-    } 
+        phone: ''
+    }
 }
 
 export const ProviderModal = () => {
@@ -65,12 +65,8 @@ export const ProviderModal = () => {
             documentNumber, address, email, phone,cellPhone,
             usualPayment, files, acceptThirdPartyCheck, usualPaymentTerm,
             withholdingAndPerceptionExempt, salesContact, administrativeContact,
-            salesContactName = salesContact.name,
-            salesContactEmail = salesContact.email,
-            salesContactPhone = salesContact.phone,
-            administrativeContactName = administrativeContact.name,
-            administrativeContactEmail = administrativeContact.email,
-            administrativeContactPhone = administrativeContact.phone} = formValues;
+            salesContactName = salesContact.name, salesContactEmail = salesContact.email, salesContactPhone = salesContact.phone,
+            administrativeContactName = administrativeContact.name, administrativeContactEmail = administrativeContact.email, administrativeContactPhone = administrativeContact.phone} = formValues;
 
     useEffect(() => {
         if (activeProvider) {
@@ -113,22 +109,22 @@ export const ProviderModal = () => {
         formProviderData.set('acceptThirdPartyCheck', acceptThirdPartyCheck);
         formProviderData.set('usualPaymentTerm', usualPaymentTerm);
         formProviderData.set('withholdingAndPerceptionExempt', withholdingAndPerceptionExempt);
-        if (salesContactName !== '') {
+        if (salesContactName !== null) {
             formProviderData.set('salesContact.name', salesContactName);  
         }
-        if (salesContactEmail !== '') {
+        if (salesContactEmail !== null) {
             formProviderData.set('salesContact.email', salesContactEmail);
         }
-        if (salesContactPhone !== 0) {
+        if (salesContactPhone !== null) {
             formProviderData.set('salesContact.phone', salesContactPhone);
         }
-        if (administrativeContactName !== '') {
+        if (administrativeContactName !== null) {
             formProviderData.set('administrativeContact.name', administrativeContactName);
         }
-        if (administrativeContactEmail !== '') {
+        if (administrativeContactEmail !== null) {
             formProviderData.set('administrativeContact.email', administrativeContactEmail);
         }
-        if (administrativeContactPhone !== 0) {
+        if (administrativeContactPhone !== null) {
             formProviderData.set('administrativeContact.phone', administrativeContactPhone);
         }
         
@@ -354,7 +350,7 @@ export const ProviderModal = () => {
                             placeholder="Plazo de pago"
                             name="usualPaymentTerm"
                             autoComplete="off"
-                            value={ usualPaymentTerm || 0 }
+                            value={ usualPaymentTerm || '' }
                             onChange={ handleInputChange }
                         />
                 </div>
@@ -377,7 +373,7 @@ export const ProviderModal = () => {
                             name="salesContactName"
                             autoComplete="off"
                             onChange={ handleInputChange }
-                            value={ salesContactName || ''}
+                            value={ salesContactName }
                         />
                 </div>
                 <div className="form-group">
@@ -388,7 +384,7 @@ export const ProviderModal = () => {
                             placeholder="Email"
                             name="salesContactEmail"
                             autoComplete="off"
-                            value={ salesContactEmail || ''}
+                            value={ salesContactEmail }
                             onChange={ handleInputChange }
                         />
                 </div>
@@ -400,7 +396,7 @@ export const ProviderModal = () => {
                             placeholder="Teléfono"
                             name="salesContactPhone"
                             autoComplete="off"
-                            value={ salesContactPhone}
+                            value={ salesContactPhone }
                             onChange={ handleInputChange }
                         />
                 </div>
@@ -413,7 +409,7 @@ export const ProviderModal = () => {
                             placeholder="Nombre"
                             name="administrativeContactName"
                             autoComplete="off"
-                            value={ administrativeContactName || ''}
+                            value={ administrativeContactName }
                             onChange={ handleInputChange }
                         />
                 </div>
@@ -425,7 +421,7 @@ export const ProviderModal = () => {
                             placeholder="Email"
                             name="administrativeContactEmail"
                             autoComplete="off"
-                            value={ administrativeContactEmail || ''}
+                            value={ administrativeContactEmail }
                             onChange={ handleInputChange }
                         />
                 </div>
